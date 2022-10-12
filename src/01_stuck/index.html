@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            stuck
+        </title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="../../style.css">
+        <link rel="shortcut icon" href="#">
+    </head>
+    <body>
+        <div class="center">
+            <div>
+                <a href="../../index.html">back</a>
+            </div>
+            <canvas id="canvas" width="775" height="775"></canvas>
+            <script src="../geom.js"></script> 
+            <script src="../math.js"></script> 
+            <script src="../main.js"></script> 
+            <script src="script.js" type="text/javascript"></script>
+        </div>
+        <div class="code">
+            <pre>
+<code>
+function collide() {
+    for (var i = 0; i &lt; OBSTACLES.length; ++i) {
+        if (overlapRects(PLAYER, OBSTACLES[i])) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function update() {
+    if (collide()) {
+        PLAYER_SPEED.x = 0;
+        PLAYER_SPEED.y = 0;
+    }
+    PLAYER.center.x += PLAYER_SPEED.x;
+    PLAYER.center.y += PLAYER_SPEED.y;
+}
+</code>
+</pre>
+        </div>
+    </body>
+</html>
