@@ -1,0 +1,15 @@
+*
+!.gitignore
+!*.nix
+!.shellhook
+!.clang-format
+
+!scripts/
+!*.sh
+!*.py
+
+!src/
+!src/*_*/
+!*.html
+!*.css
+!*.js
