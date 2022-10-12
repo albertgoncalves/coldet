@@ -2,7 +2,10 @@
 !.gitignore
 !*.nix
 !.shellhook
+
 !.clang-format
+!.jshintrc
+!.tidyrc
 
 !scripts/
 !*.sh

@@ -1,0 +1,20 @@
+{
+    "browser": true,
+    "curly": true,
+    "eqeqeq": true,
+    "esversion": 5,
+    "freeze": true,
+    "latedef": true,
+    "leanswitch": true,
+    "noarg": true,
+    "nocomma": true,
+    "node": true,
+    "nonbsp": true,
+    "nonew": true,
+    "noreturnawait": true,
+    "shadow": false,
+    "strict": true,
+    "trailingcomma": true,
+    "undef": true,
+    "unused": true
+}
