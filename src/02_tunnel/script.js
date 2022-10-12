@@ -3,9 +3,9 @@
 
 "use strict";
 
-function collide() {
+function collide(rect) {
     for (var i = 0; i < OBSTACLES.length; ++i) {
-        if (overlapRects(PLAYER, OBSTACLES[i])) {
+        if (overlapRects(rect, OBSTACLES[i])) {
             return true;
         }
     }
@@ -13,12 +13,20 @@ function collide() {
 }
 
 function update() {
-    PLAYER.center.x += PLAYER_SPEED.x;
-    PLAYER.center.y += PLAYER_SPEED.y;
-    if (collide()) {
-        PLAYER.center.x -= PLAYER_SPEED.x;
-        PLAYER.center.y -= PLAYER_SPEED.y;
+    var destination = {
+        center: {
+            x: PLAYER.center.x + PLAYER_SPEED.x,
+            y: PLAYER.center.y + PLAYER_SPEED.y,
+        },
+        scale: {
+            x: PLAYER.scale.x,
+            y: PLAYER.scale.y,
+        },
+    };
+    if (collide(destination)) {
         PLAYER_SPEED.x = 0;
         PLAYER_SPEED.y = 0;
     }
+    PLAYER.center.x += PLAYER_SPEED.x;
+    PLAYER.center.y += PLAYER_SPEED.y;
 }
