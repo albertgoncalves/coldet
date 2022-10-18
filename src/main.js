@@ -57,7 +57,7 @@ var CAMERA = {
     y: 0,
 };
 
-var CAMERA_LATENCY = 0.0075;
+var CAMERA_LATENCY = 0.0125;
 
 var PLAYER_STEP = 0.235;
 var PLAYER_FRICTION = 0.9325;
