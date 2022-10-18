@@ -3,7 +3,7 @@
 
 "use strict";
 
-function collide() {
+function anyOverlap() {
     for (var i = 0; i < OBSTACLES.length; ++i) {
         if (overlapRects(PLAYER, OBSTACLES[i])) {
             return true;
@@ -13,7 +13,7 @@ function collide() {
 }
 
 function update() {
-    if (collide()) {
+    if (anyOverlap()) {
         PLAYER_SPEED.x = 0;
         PLAYER_SPEED.y = 0;
     }
