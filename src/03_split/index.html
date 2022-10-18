@@ -32,42 +32,40 @@ function anyOverlap(rect) {
 }
 
 function update() {
-    {
-        var xSpeed = Math.abs(PLAYER_SPEED.x);
-        var xOffset = (PLAYER.scale.x + xSpeed) / 2;
-        var xMove = {
-            center: {
-                x: PLAYER_SPEED.x &lt; 0 ? PLAYER.center.x - xOffset
-                                      : PLAYER.center.x + xOffset,
-                y: PLAYER.center.y,
-            },
-            scale: {
-                x: xSpeed,
-                y: PLAYER.scale.y,
-            },
-        };
-        if (anyOverlap(xMove)) {
-            PLAYER_SPEED.x = 0;
-        }
+    var xSpeed = Math.abs(PLAYER_SPEED.x);
+    var xOffset = (PLAYER.scale.x + xSpeed) / 2;
+    var xMove = {
+        center: {
+            x: PLAYER_SPEED.x &lt; 0 ? PLAYER.center.x - xOffset
+                                  : PLAYER.center.x + xOffset,
+            y: PLAYER.center.y,
+        },
+        scale: {
+            x: xSpeed,
+            y: PLAYER.scale.y,
+        },
+    };
+    if (anyOverlap(xMove)) {
+        PLAYER_SPEED.x = 0;
     }
-    {
-        var ySpeed = Math.abs(PLAYER_SPEED.y);
-        var yOffset = (PLAYER.scale.y + ySpeed) / 2;
-        var yMove = {
-            center: {
-                x: PLAYER.center.x,
-                y: PLAYER_SPEED.y &lt; 0 ? PLAYER.center.y - yOffset
-                                      : PLAYER.center.y + yOffset,
-            },
-            scale: {
-                x: PLAYER.scale.x,
-                y: ySpeed,
-            },
-        };
-        if (anyOverlap(yMove)) {
-            PLAYER_SPEED.y = 0;
-        }
+
+    var ySpeed = Math.abs(PLAYER_SPEED.y);
+    var yOffset = (PLAYER.scale.y + ySpeed) / 2;
+    var yMove = {
+        center: {
+            x: PLAYER.center.x,
+            y: PLAYER_SPEED.y &lt; 0 ? PLAYER.center.y - yOffset
+                                  : PLAYER.center.y + yOffset,
+        },
+        scale: {
+            x: PLAYER.scale.x,
+            y: ySpeed,
+        },
+    };
+    if (anyOverlap(yMove)) {
+        PLAYER_SPEED.y = 0;
     }
+
     PLAYER.center.x += PLAYER_SPEED.x;
     PLAYER.center.y += PLAYER_SPEED.y;
 }
