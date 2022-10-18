@@ -24,6 +24,16 @@ var OBSTACLES = [
             y: 500,
         },
     },
+    {
+        center: {
+            x: 200,
+            y: -100,
+        },
+        scale: {
+            x: 500,
+            y: 5,
+        },
+    },
 ];
 
 var MILLISECONDS = 1000;
