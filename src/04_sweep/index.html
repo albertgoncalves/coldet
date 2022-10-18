@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            sweep
+        </title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="../../style.css">
+        <link rel="shortcut icon" href="#">
+    </head>
+    <body>
+        <div class="center">
+            <div>
+                <a href="../../index.html">back</a>
+            </div>
+            <canvas id="canvas" width="775" height="775"></canvas>
+            <script src="../geom.js"></script> 
+            <script src="../math.js"></script> 
+            <script src="../main.js"></script> 
+            <script src="script.js" type="text/javascript"></script>
+        </div>
+        <div class="code">
+            <pre>
+<code>
+function getBoxFromRect(rect) {
+    var halfScale = {
+        x: rect.scale.x / 2,
+        y: rect.scale.y / 2,
+    };
+    return {
+        leftBottom: {
+            x: rect.center.x - halfScale.x,
+            y: rect.center.y - halfScale.y,
+        },
+        rightTop: {
+            x: rect.center.x + halfScale.x,
+            y: rect.center.y + halfScale.y,
+        },
+    };
+}
+
+function collide(obstacle) {
+    var time = {
+        x: -Infinity,
+        y: -Infinity,
+    };
+
+    var boxPlayer = getBoxFromRect(PLAYER);
+    var boxObstacle = getBoxFromRect(obstacle);
+
+    if (0 &lt; PLAYER_SPEED.x) {
+        time.x =
+            (boxObstacle.leftBottom.x - boxPlayer.rightTop.x) / PLAYER_SPEED.x;
+    } else if (PLAYER_SPEED.x &lt; 0) {
+        time.x =
+            (boxObstacle.rightTop.x - boxPlayer.leftBottom.x) / PLAYER_SPEED.x;
+    }
+
+    if (0 &lt; PLAYER_SPEED.y) {
+        time.y =
+            (boxObstacle.leftBottom.y - boxPlayer.rightTop.y) / PLAYER_SPEED.y;
+    } else if (PLAYER_SPEED.y &lt; 0) {
+        time.y =
+            (boxObstacle.rightTop.y - boxPlayer.leftBottom.y) / PLAYER_SPEED.y;
+    }
+
+    var maxTime = Math.max(time.x, time.y);
+    if ((maxTime &lt; 0) || (1 &lt; maxTime)) {
+        return false;
+    }
+    var destination = {
+        center: {
+            x: PLAYER.center.x + (PLAYER_SPEED.x * maxTime),
+            y: PLAYER.center.y + (PLAYER_SPEED.y * maxTime),
+        },
+        scale: {
+            x: PLAYER.scale.x,
+            y: PLAYER.scale.y,
+        },
+    };
+    return overlapRects(destination, obstacle);
+}
+
+function anyCollide() {
+    for (var i = 0; i &lt; OBSTACLES.length; ++i) {
+        if (collide(OBSTACLES[i])) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function update() {
+    if (anyCollide()) {
+        PLAYER_SPEED.x = 0;
+        PLAYER_SPEED.y = 0;
+    }
+    PLAYER.center.x += PLAYER_SPEED.x;
+    PLAYER.center.y += PLAYER_SPEED.y;
+}
+</code>
+</pre>
+        </div>
+    </body>
+</html>
