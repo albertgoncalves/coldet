@@ -1,8 +1,8 @@
 body {
     margin-top: 20px;
     margin-bottom: 20px;
-    background-color: hsl(0, 0%, 98%);
-    color: hsl(0, 0%, 20%);
+    background-color: hsl(0, 0%, 10%);
+    color: hsl(0, 0%, 98%);
     font-family: "Lucida Console", Monaco, "Andale Mono", monospace;
     font-size: 16px;
     -webkit-text-size-adjust: 100%;
@@ -20,15 +20,15 @@ canvas {
     padding-right: 0;
     margin-left: auto;
     margin-right: auto;
-    background-color: hsl(0, 0%, 20%);
+    background-color: hsl(0, 0%, 22%);
 }
 
 a {
-    color: hsl(0, 0%, 30%);
+    color: hsl(0, 0%, 98%);
 }
 
 a:hover {
-    background-color: hsl(0, 0%, 95%);
+    background-color: hsl(0, 0%, 22%);
 }
 
 div.center {
@@ -41,5 +41,5 @@ div.code {
     padding-right: 10px;
     margin-left: auto;
     margin-right: auto;
-    background-color: hsl(0, 0%, 90%);
+    background-color: hsl(0, 0%, 22%);
 }
