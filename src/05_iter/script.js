@@ -117,7 +117,7 @@ function update() {
         if (!collision.hit.x && !collision.hit.y) {
             PLAYER.center.x += speed.x;
             PLAYER.center.y += speed.y;
-            return;
+            break;
         }
 
         speed.x *= collision.time;
