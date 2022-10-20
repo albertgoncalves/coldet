@@ -64,21 +64,40 @@ function collide(obstacle) {
             (boxObstacle.rightTop.y - boxPlayer.leftBottom.y) / PLAYER_SPEED.y;
     }
 
-    var maxTime = Math.max(time.x, time.y);
-    if ((maxTime &lt; 0) || (1 &lt; maxTime)) {
-        return false;
+    var boxDestination;
+    if (time.y &lt; time.x) {
+        if ((time.x &lt; 0) || (1 &lt; time.x)) {
+            return false;
+        }
+        boxDestination = getBoxFromRect({
+            center: {
+                x: PLAYER.center.x + (PLAYER_SPEED.x * time.x),
+                y: PLAYER.center.y + (PLAYER_SPEED.y * time.x),
+            },
+            scale: {
+                x: PLAYER.scale.x,
+                y: PLAYER.scale.y,
+            },
+        });
+        return (boxDestination.leftBottom.y &lt; boxObstacle.rightTop.y) &amp;&
+               (boxObstacle.leftBottom.y &lt; boxDestination.rightTop.y);
+    } else {
+        if ((time.y &lt; 0) || (1 &lt; time.y)) {
+            return false;
+        }
+        boxDestination = getBoxFromRect({
+            center: {
+                x: PLAYER.center.x + (PLAYER_SPEED.x * time.y),
+                y: PLAYER.center.y + (PLAYER_SPEED.y * time.y),
+            },
+            scale: {
+                x: PLAYER.scale.x,
+                y: PLAYER.scale.y,
+            },
+        });
+        return (boxDestination.leftBottom.x &lt; boxObstacle.rightTop.x) &amp;&
+               (boxObstacle.leftBottom.x &lt; boxDestination.rightTop.x);
     }
-    var destination = {
-        center: {
-            x: PLAYER.center.x + (PLAYER_SPEED.x * maxTime),
-            y: PLAYER.center.y + (PLAYER_SPEED.y * maxTime),
-        },
-        scale: {
-            x: PLAYER.scale.x,
-            y: PLAYER.scale.y,
-        },
-    };
-    return overlapRects(destination, obstacle);
 }
 
 function anyCollide() {

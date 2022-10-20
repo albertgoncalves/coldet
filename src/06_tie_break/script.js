@@ -70,40 +70,61 @@ function collide(obstacle, speed) {
         time.y = (boxObstacle.rightTop.y - boxPlayer.leftBottom.y) / speed.y;
     }
 
-    var maxTime;
-    var hit = {
-        x: false,
-        y: false,
-    };
+    var boxDestination;
     if (time.y < time.x) {
-        maxTime = time.x;
-        hit.x = true;
+        if ((time.x < 0) || (1 < time.x)) {
+            return noHit();
+        }
+        boxDestination = getBoxFromRect({
+            center: {
+                x: PLAYER.center.x + (speed.x * time.x),
+                y: PLAYER.center.y + (speed.y * time.x),
+            },
+            scale: {
+                x: PLAYER.scale.x,
+                y: PLAYER.scale.y,
+            },
+        });
+        if ((boxDestination.leftBottom.y < boxObstacle.rightTop.y) &&
+            (boxObstacle.leftBottom.y < boxDestination.rightTop.y))
+        {
+            return {
+                time: time.x,
+                hit: {
+                    x: true,
+                    y: false,
+                },
+                overlap: overlapBoxes(boxDestination, boxObstacle),
+            };
+        }
     } else {
-        maxTime = time.y;
-        hit.y = true;
+        if ((time.y < 0) || (1 < time.y)) {
+            return noHit();
+        }
+        boxDestination = getBoxFromRect({
+            center: {
+                x: PLAYER.center.x + (speed.x * time.y),
+                y: PLAYER.center.y + (speed.y * time.y),
+            },
+            scale: {
+                x: PLAYER.scale.x,
+                y: PLAYER.scale.y,
+            },
+        });
+        if ((boxDestination.leftBottom.x < boxObstacle.rightTop.x) &&
+            (boxObstacle.leftBottom.x < boxDestination.rightTop.x))
+        {
+            return {
+                time: time.y,
+                hit: {
+                    x: false,
+                    y: true,
+                },
+                overlap: overlapBoxes(boxDestination, boxObstacle),
+            };
+        }
     }
-    if ((maxTime < 0) || (1 < maxTime)) {
-        return noHit();
-    }
-    var destination = {
-        center: {
-            x: PLAYER.center.x + (speed.x * maxTime),
-            y: PLAYER.center.y + (speed.y * maxTime),
-        },
-        scale: {
-            x: PLAYER.scale.x,
-            y: PLAYER.scale.y,
-        },
-    };
-    var overlap = overlapBoxes(getBoxFromRect(destination), boxObstacle);
-    if (overlap === 0) {
-        return noHit();
-    }
-    return {
-        time: maxTime,
-        hit: hit,
-        overlap: overlap,
-    };
+    return noHit();
 }
 
 function update() {

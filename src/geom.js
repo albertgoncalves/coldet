@@ -3,7 +3,7 @@
 "use strict";
 
 function overlapSegments(l0, r0, l1, r1) {
-    return (l0 <= r1) && (l1 <= r0);
+    return (l0 < r1) && (l1 < r0);
 }
 
 function overlapRects(a, b) {
