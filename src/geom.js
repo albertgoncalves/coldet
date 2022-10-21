@@ -1,4 +1,4 @@
-/* exported overlapRects */
+/* exported getBoxFromRect, overlapRects */
 
 "use strict";
 
@@ -23,4 +23,21 @@ function overlapRects(a, b) {
                            a.center.y + aScaleHalf.y,
                            b.center.y - bScaleHalf.y,
                            b.center.y + bScaleHalf.y);
+}
+
+function getBoxFromRect(rect) {
+    var halfScale = {
+        x: rect.scale.x / 2,
+        y: rect.scale.y / 2,
+    };
+    return {
+        leftBottom: {
+            x: rect.center.x - halfScale.x,
+            y: rect.center.y - halfScale.y,
+        },
+        rightTop: {
+            x: rect.center.x + halfScale.x,
+            y: rect.center.y + halfScale.y,
+        },
+    };
 }

@@ -1,24 +1,7 @@
-/* globals OBSTACLES, PLAYER, PLAYER_SPEED */
+/* globals getBoxFromRect, OBSTACLES, PLAYER, PLAYER_SPEED */
 /* exported update */
 
 "use strict";
-
-function getBoxFromRect(rect) {
-    var halfScale = {
-        x: rect.scale.x / 2,
-        y: rect.scale.y / 2,
-    };
-    return {
-        leftBottom: {
-            x: rect.center.x - halfScale.x,
-            y: rect.center.y - halfScale.y,
-        },
-        rightTop: {
-            x: rect.center.x + halfScale.x,
-            y: rect.center.y + halfScale.y,
-        },
-    };
-}
 
 function noHit() {
     return {
