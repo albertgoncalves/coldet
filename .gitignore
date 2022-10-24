@@ -11,8 +11,10 @@
 !*.sh
 !*.py
 
+!templates/
+!*.html
+
 !src/
 !src/*_*/
-!*.html
 !*.css
 !*.js

@@ -6,56 +6,12 @@ from os.path import isdir, join, sep
 
 WD = environ["WD"]
 
-TEMPLATE_ROOT = """
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>{title}</title>
-<link rel="stylesheet" href="style.css">
-<link rel="shortcut icon" href="#">
-</head>
-<body>
-<div class="center">
-{items}
-</div>
-</body>
-</html>
-"""
-
-TEMPLATE_ITEM = """<div><a href="src/{subdir}/index.html">{subdir}</a></div>"""
-
-TEMPLATE_SUBDIR = """
-<!DOCTYPE html>
-<html>
-<head>
-<title>{title}</title>
-<meta charset="utf-8">
-<link rel="stylesheet" href="../../style.css">
-<link rel="shortcut icon" href="#">
-</head>
-<body>
-<div class="center">
-<div><a href="../../index.html">back</a></div>
-<canvas id="canvas" width="775" height="775"></canvas>
-<script src="../geom.js"></script>
-<script src="../math.js"></script>
-<script src="../main.js"></script>
-<script src="script.js" type="text/javascript"></script>
-</div>
-<div class="code">
-<pre>
-<code>
-{script}
-</code>
-</pre>
-</div>
-</body>
-</html>
-"""
+TEMPLATE_ITEM = "<div><a href=\"src/{subdir}/index.html\">{subdir}</a></div>"
 
 
 def main():
+    with open(join(WD, "templates", "subdir.html"), "r") as file:
+        template_subdir = file.read()
     items = []
     (_, root) = WD.rsplit(sep, 1)
     for path in sorted(glob(join(WD, "src", "*"))):
@@ -68,13 +24,15 @@ def main():
         (_, script) = script.split("\"use strict\";", 1)
         script = script.strip()
         with open(join(path, "index.html"), "w") as file:
-            file.write(TEMPLATE_SUBDIR.format(
+            file.write(template_subdir.format(
                 title=title,
                 script=script,
             ))
         items.append(TEMPLATE_ITEM.format(subdir=subdir))
+    with open(join(WD, "templates", "root.html"), "r") as file:
+        template_root = file.read()
     with open(join(WD, "index.html"), "w") as file:
-        file.write(TEMPLATE_ROOT.format(title=root, items="".join(items)))
+        file.write(template_root.format(title=root, items="".join(items)))
 
 
 if __name__ == "__main__":
